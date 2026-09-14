@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İSG ve Çalışma Mevzuatı - İSG Faaliyet Kontrol Sistemi</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            
+            /* Mevzuat Teması Accent Rengi (Mor) */
+            --accent-color: #8b5cf6;
+            --accent-hover: #7c3aed;
+            --accent-bg-light: rgba(139, 92, 246, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Üst Navigasyon & Başlık */
+        .header-container {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 30px;
+        }
+
+        .top-nav {
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-bg-light);
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .icon-box svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        .header-text h1 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .header-text p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Mevzuat Grid Düzeni */
+        .mevzuat-container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .category-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        /* Mevzuat Link Listesi */
+        .mevzuat-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mevzuat-item a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .mevzuat-item a:hover {
+            border-color: var(--accent-color);
+            transform: translateX(4px);
+            background-color: rgba(139, 92, 246, 0.05);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: var(--border-color);
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .external-icon {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .mevzuat-item a:hover .external-icon {
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-text h1 {
+                font-size: 1.4rem;
+            }
+            .mevzuat-item a {
+                font-size: 0.85rem;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <!-- Ana Haritaya Dönüş -->
+        <div class="top-nav">
+            <a href="index.html" class="back-btn">
+                &#8592; Ana Haritaya Dön
+            </a>
+        </div>
+
+        <!-- Başlık Paneli -->
+        <div class="page-header">
+            <div class="icon-box">
+                <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+            </div>
+            <div class="header-text">
+                <h1>İSG ve Çalışma Mevzuatı</h1>
+                <p>Türkiye İş Sağlığı ve Güvenliği mevzuatına ilişkin temel kanun, yönetmelik ve tebliğler.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mevzuat Kategorileri -->
+    <div class="mevzuat-container">
+
+        <!-- KANUNLAR -->
+        <div class="category-card">
+            <div class="category-title">
+                <span>📘 Temel Kanunlar</span>
+            </div>
+            <ul class="mevzuat-list">
+                <li class="mevzuat-item">
+                    <a href="https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6331.pdf" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">6331</span>
+                            <span>İş Sağlığı ve Güvenliği Kanunu</span>
+                        </div>
+                        <span class="external-icon">↗ PDF</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.mevzuat.gov.tr/MevzuatMetin/1.5.4857.pdf" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">4857</span>
+                            <span>İş Kanunu</span>
+                        </div>
+                        <span class="external-icon">↗ PDF</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5510.pdf" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">5510</span>
+                            <span>Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu</span>
+                        </div>
+                        <span class="external-icon">↗ PDF</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6098.pdf" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">6098</span>
+                            <span>Türk Borçlar Kanunu (İş Kazası Borçlar Hükümleri)</span>
+                        </div>
+                        <span class="external-icon">↗ PDF</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- YÖNETMELİKLER -->
+        <div class="category-card">
+            <div class="category-title">
+                <span>📙 Temel Yönetmelikler</span>
+            </div>
+            <ul class="mevzuat-list">
+                <li class="mevzuat-item">
+                    <a href="https://www.resmigazete.gov.tr/eskiler/2012/12/20121229-3.htm" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">Yönetmelik</span>
+                            <span>İş Sağlığı ve Güvenliği Risk Değerlendirmesi Yönetmeliği</span>
+                        </div>
+                        <span class="external-icon">↗ Bağlantı</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.resmigazete.gov.tr/eskiler/2013/07/20130713-1.htm" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">Yönetmelik</span>
+                            <span>İş Ekipmanlarının Kullanımında Sağlık ve Güvenlik Şartları</span>
+                        </div>
+                        <span class="external-icon">↗ Bağlantı</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.resmigazete.gov.tr/eskiler/2013/04/20130430-5.htm" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">Yönetmelik</span>
+                            <span>Çalışanların İş Sağlığı ve Güvenliği Eğitimlerinin Usul ve Esasları</span>
+                        </div>
+                        <span class="external-icon">↗ Bağlantı</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.resmigazete.gov.tr/eskiler/2013/07/20130720-3.htm" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">Yönetmelik</span>
+                            <span>İşyerlerinde Acil Durumlar Hakkında Yönetmelik</span>
+                        </div>
+                        <span class="external-icon">↗ Bağlantı</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.resmigazete.gov.tr/eskiler/2013/07/20130702-4.htm" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">Yönetmelik</span>
+                            <span>Kişisel Koruyucu Donanımların İşyerlerinde Kullanılması</span>
+                        </div>
+                        <span class="external-icon">↗ Bağlantı</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ULUSLARARASI VE KURUMSAL REHBERLER -->
+        <div class="category-card">
+            <div class="category-title">
+                <span>🌐 Resmi Portallar & Kurumsal Linkler</span>
+            </div>
+            <ul class="mevzuat-list">
+                <li class="mevzuat-item">
+                    <a href="https://www.mevzuat.gov.tr" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">Portal</span>
+                            <span>T.C. Cumhurbaşkanlığı Mevzuat Bilgi Sistemi</span>
+                        </div>
+                        <span class="external-icon">↗ Git</span>
+                    </a>
+                </li>
+                <li class="mevzuat-item">
+                    <a href="https://www.csgb.gov.tr/isggm" target="_blank">
+                        <div class="item-info">
+                            <span class="badge">Kurum</span>
+                            <span>Çalışma ve Sosyal Güvenlik Bakanlığı - İSGGGM</span>
+                        </div>
+                        <span class="external-icon">↗ Git</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
