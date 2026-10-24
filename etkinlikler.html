@@ -95,6 +95,26 @@
             cursor: pointer;
         }
 
+        /* PUAN GÖSTERGESİ (60 ALTI KIRMIZI, 60 VE ÜSTÜ YEŞİL) */
+        .score-display {
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: white;
+            color: var(--danger-color);
+            border: 2px solid var(--danger-color);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .score-display.passed {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
         .timer-display {
             font-size: 0.85rem;
             font-weight: bold;
@@ -179,7 +199,7 @@
             margin: 0;
         }
 
-        /* --- 1. EŞLEŞTİRME ETKİNLİĞİ (MOBİLDE DE YAN YANA) --- */
+        /* --- 1. EŞLEŞTİRME ETKİNLİĞİ --- */
         .stats-bar {
             display: flex;
             justify-content: center;
@@ -203,7 +223,7 @@
             display: flex; 
             flex-direction: column; 
             gap: 6px; 
-            min-width: 0; /* Taşan elemanları engeller */
+            min-width: 0; 
         }
         .column-title { 
             font-weight: bold; 
@@ -215,8 +235,9 @@
             font-size: 0.75rem; 
         }
 
+        /* %50 BÜYÜTÜLMÜŞ MASAÜSTÜ / DOKUNMATİK KARTLAR */
         .card {
-            padding: 6px 8px;
+            padding: 8px 10px;
             background: #f1f5f9; 
             border: 1.5px solid #cbd5e1;
             border-radius: 6px;
@@ -225,9 +246,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: 38px;
+            min-height: 48px;
             user-select: none;
-            font-size: 0.72rem;
+            font-size: 0.85rem;
             color: #1e293b;
             word-break: break-word;
         }
@@ -235,20 +256,21 @@
         .visual-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             width: 100%;
             min-width: 0;
         }
+        /* %50 BÜYÜTÜLMÜŞ PİKTOGRAM KUTUSU */
         .mock-icon {
-            font-size: 14px;
+            font-size: 20px;
             background: #e2e8f0;
-            padding: 3px;
+            padding: 4px;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 24px;
-            min-height: 24px;
+            min-width: 32px;
+            min-height: 32px;
             flex-shrink: 0;
         }
 
@@ -264,8 +286,8 @@
             padding: 12px; 
             border-radius: 8px; 
         }
-        .success-box { background: #dcfce7; border: 2px dashed #22c55e; }
-        .fail-box { background: #fee2e2; border: 2px dashed #ef4444; }
+        .success-box { background: #dcfce7; border: 2px dashed #22c55e; color: #155724; }
+        .fail-box { background: #fee2e2; border: 2px dashed #ef4444; color: #721c24; }
 
         /* --- BOŞLUK DOLDURMA --- */
         .fill-item {
@@ -365,7 +387,7 @@
             padding: 3px;
             border-radius: 6px;
             user-select: none;
-            touch-action: none; /* Mobilde kaydırma yerine sürükleme algılaması için şart */
+            touch-action: none;
         }
 
         .grid-cell {
@@ -406,7 +428,7 @@
             border-left-color: var(--accent-color);
         }
 
-        /* --- ÇENGEL BULMACA (PANELSIZ) --- */
+        /* --- ÇENGEL BULMACA --- */
         .crossword-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -473,11 +495,25 @@
             100% { transform: translateX(0); }
         }
 
-        /* --- MOBİL UYUMLULUK OPTİMİZASYONU --- */
+        /* --- MOBİL İÇİN %50 EN-BOY VE ÇERÇEVE BÜYÜTMELERİ --- */
         @media (max-width: 768px) {
             body { padding: 4px; }
             .sticky-header-container { flex-direction: column; align-items: stretch; text-align: center; }
             .top-bar-controls { justify-content: space-between; }
+            
+            /* Mobilde Eşleştirme Kartları ve Piktogram Alanları En-Boy %50 Büyütüldü */
+            .card {
+                min-height: 58px;
+                padding: 10px;
+                font-size: 0.82rem;
+                line-height: 1.25;
+            }
+            .mock-icon {
+                font-size: 24px;
+                min-width: 36px;
+                min-height: 36px;
+            }
+            
             .grid-cell { width: 22px; height: 22px; font-size: 0.65rem; }
             .crossword-board { grid-template-columns: repeat(10, 24px); grid-template-rows: repeat(10, 24px); }
             .cw-cell { width: 24px; height: 24px; }
@@ -498,6 +534,10 @@
                 <label>
                     <input type="checkbox" id="chk-mute"> 🔇 Ses
                 </label>
+            </div>
+            <!-- PUAN GÖSTERGESİ -->
+            <div class="score-display" id="score-box">
+                🏆 Puan: <span id="user-score">0</span>
             </div>
             <div class="timer-display">
                 ⏱️ <span id="timer-count">0</span>sn
@@ -613,7 +653,7 @@
         </div>
     </div>
 
-    <!-- 5. ÇENGEL BULMACA (PANELSIZ VE OTOMATİK ÇİZİLEN) -->
+    <!-- 5. ÇENGEL BULMACA -->
     <div id="sec-crossword" class="game-section">
         <div class="section-header">
             <h2>5. Çengel Bulmaca</h2>
@@ -636,10 +676,26 @@
     </div>
 
     <script>
-        /* ================= KRONOMETRE VE SAYFA KORUMA ================= */
+        /* ================= PUAN HESAPLAMA VE SAYAÇ MANTIĞI ================= */
+        let userTotalScore = 0;
         let timerInterval = null;
         let secondsElapsed = 0;
         let isTimerRunning = false;
+
+        function updateScoreDisplay() {
+            document.getElementById('user-score').innerText = userTotalScore;
+            const scoreBox = document.getElementById('score-box');
+            if (userTotalScore >= 60) {
+                scoreBox.classList.add('passed');
+            } else {
+                scoreBox.classList.remove('passed');
+            }
+        }
+
+        function addBonusPoints(points) {
+            userTotalScore += points;
+            updateScoreDisplay();
+        }
 
         function startTimer() {
             if (isTimerRunning) return;
@@ -651,7 +707,6 @@
             }, 1000);
         }
 
-        // 1. Madde: Sayfa yenileme/kapanma koruması
         window.addEventListener('beforeunload', function (e) {
             if (isTimerRunning) {
                 e.preventDefault();
@@ -737,7 +792,7 @@
 
         function switchGame(type, btnElement) {
             if (!isGamesUnlocked && type !== 'match') {
-                alert("Önce 1. Eşleştirme Etkinliğini başarıyla tamamlamalısınız!");
+                alert("Önce 1. Eşleştirme Etkinliğini tamamlamalısınız!");
                 return;
             }
 
@@ -755,7 +810,7 @@
             if (type === 'fill') initFillGame();
         }
 
-        /* ================= 1) EŞLEŞTİRME ================= */
+        /* ================= 1) EŞLEŞTİRME ETKİNLİĞİ ================= */
         const mockGameData = [
             { id: 1, left_text: "Patlayıcı Madde", visual_content: "💣", visual_label: "Patlayan Bomba", match_key: "explosive" },
             { id: 2, left_text: "Organik Gaz Filtresi", visual_content: "🟤", visual_label: "Kahverengi Kartuş", match_key: "organic_filter" },
@@ -769,14 +824,14 @@
             { id: 10, left_text: "Çok Toksik Madde", visual_content: "☠️", visual_label: "Kuru Kafa", match_key: "toxic" },
             { id: 11, left_text: "Karbonmonoksit Filtresi", visual_content: "🔘", visual_label: "Siyah/Gri Kartuş", match_key: "co_filter" },
             { id: 12, left_text: "Sağlık Zararı (Kanserojen)", visual_content: "⚡", visual_label: "Yıldız Sembolü", match_key: "health_hazard" },
-            { id: 13, left_text: "Çevre İçin Tehlikeli", visual_content: "🌲", visual_label: "Ölü Ağaç/Balık", match_key: "environmental" },
-            { id: 14, left_text: "Basınçlı Gaz Tüpleri", visual_content: "🧊", visual_label: "Gaz Tüpü Simgesi", match_key: "gas_cylinder" },
-            { id: 15, left_text: "MSDS Bölüm 4 (İlk Yardım)", visual_content: "🚑", visual_label: "İlk Yardım Çantası", match_key: "msds_sec4" },
-            { id: 16, left_text: "Toz ve Partikül Filtresi", visual_content: "😷", visual_label: "Parçacık Filtresi", match_key: "dust_filter" },
-            { id: 17, left_text: "MSDS Bölüm 1 (Kimlik)", visual_content: "📌", visual_label: "Şirket Bilgisi", match_key: "msds_sec1" },
-            { id: 18, left_text: "Alevlenir Gaz/Sıvı", visual_content: "🔥", visual_label: "Alev Simgesi", match_key: "flammable" },
-            { id: 19, left_text: "MSDS Bölüm 6 (Sızıntı)", visual_content: "🧹", visual_label: "Müdahale Simgesi", match_key: "msds_sec6" },
-            { id: 20, left_text: "Dökülme Nötralizatörü", visual_content: "🧯", visual_label: "Nötrleme Tozu", match_key: "spill_kit" }
+           // { id: 13, left_text: "Çevre İçin Tehlikeli", visual_content: "🌲", visual_label: "Ölü Ağaç/Balık", match_key: "environmental" },
+          //  { id: 14, left_text: "Basınçlı Gaz Tüpleri", visual_content: "🧊", visual_label: "Gaz Tüpü Simgesi", match_key: "gas_cylinder" },
+          //  { id: 15, left_text: "MSDS Bölüm 4 (İlk Yardım)", visual_content: "🚑", visual_label: "İlk Yardım Çantası", match_key: "msds_sec4" },
+          //  { id: 16, left_text: "Toz ve Partikül Filtresi", visual_content: "😷", visual_label: "Parçacık Filtresi", match_key: "dust_filter" },
+          //  { id: 17, left_text: "MSDS Bölüm 1 (Kimlik)", visual_content: "📌", visual_label: "Şirket Bilgisi", match_key: "msds_sec1" },
+          //  { id: 18, left_text: "Alevlenir Gaz/Sıvı", visual_content: "🔥", visual_label: "Alev Simgesi", match_key: "flammable" },
+          //  { id: 19, left_text: "MSDS Bölüm 6 (Sızıntı)", visual_content: "🧹", visual_label: "Müdahale Simgesi", match_key: "msds_sec6" },
+            //{ id: 20, left_text: "Dökülme Nötralizatörü", visual_content: "🧯", visual_label: "Nötrleme Tozu", match_key: "spill_kit" }
         ];
 
         let selectedLeft = null;
@@ -878,18 +933,30 @@
                 playSound('applause');
                 unlockAllGames();
                 
+                // Puan Hesaplama: TamSayı(Doğru / (Doğru + Yanlış) * 100)
+                const totalAttempts = matchCorrectCount + matchWrongCount;
+                userTotalScore = Math.floor((matchCorrectCount / totalAttempts) * 100);
+                updateScoreDisplay();
+
                 const resultContainer = document.getElementById('result-container');
                 const resultMessage = document.getElementById('result-message');
                 const actionWrapper = document.getElementById('action-btn-wrapper');
 
                 resultContainer.style.display = 'block';
-                resultContainer.className = "success-box";
-                resultMessage.innerHTML = `🎉 Tebrikler! Eşleştirme bitti.<br>Diğer 4 oyunun kilidi açıldı!`;
+
+                if (userTotalScore < 60) {
+                    resultContainer.className = "fail-box";
+                    resultMessage.innerHTML = `⚠️ Etkinliği geçmek için puan yetersiz (${userTotalScore} Puan).<br>Diğer oyunlarda geçerli ilave puan toplayarak geçerli nota (60) ulaşın!`;
+                } else {
+                    resultContainer.className = "success-box";
+                    resultMessage.innerHTML = `🎉 Tebrikler! Eşleştirme bitti. Aldığınız Puan: ${userTotalScore}<br>Diğer oyunların kilitleri açıldı!`;
+                }
+                
                 actionWrapper.innerHTML = `<button class="btn-action" onclick="switchGame('fill', document.getElementById('btn-fill'))">Boşluk Doldurmaya Geç ➔</button>`;
             }
         }
 
-        /* ================= 2) BOŞLUK DOLDURMA ================= */
+        /* ================= 2) BOŞLUK DOLDURMA (+1 PUAN) ================= */
         const fillData = [
             { text: "Kimyasalların tehlikelerini öğrenmek için ___ formuna bakılmalıdır.", ans: "MSDS" },
             { text: "Cilde zararlı maddelerle çalışırken elinize ___ takmalısınız.", ans: "ELDİVEN" },
@@ -922,12 +989,14 @@
                 input.classList.add('correct');
                 input.disabled = true;
                 fillCorrectCount++;
+                addBonusPoints(1); // +1 Puan ekleme
+
                 if (fillCorrectCount === fillData.length) playSound('applause');
                 else playSound('correct');
             }
         }
 
-        /* ================= 3) YANGIN SÖNDÜRME ================= */
+        /* ================= 3) YANGIN SÖNDÜRME (+1 PUAN) ================= */
         let fireCurrentWord = "", fireHint = "", fireGuessedLetters = [];
         let uniqueLettersCount = 0, guessedUniqueCount = 0;
 
@@ -1004,6 +1073,8 @@
                     document.getElementById('fire-group').style.display = 'none';
                     document.getElementById('fire-status-text').innerText = "%0 (SÖNDÜRÜLDÜ!)";
                     document.getElementById('fire-status-text').style.color = "var(--accent-color)";
+                    
+                    addBonusPoints(1); // Doğru bilinen kelime başına +1 Puan
                     playSound('applause');
                 } else {
                     playSound('correct');
@@ -1027,7 +1098,7 @@
             }
         }
 
-        /* ================= 4) KELİME AVI (MOBİL DOKUNMATİK SÜRÜKLEME DESTEKLİ) ================= */
+        /* ================= 4) KELİME AVI (+1 PUAN) ================= */
         const wsData = [
             { word: "MASKE", desc: "Solunumu engelleyen koruyucu." },
             { word: "ELDİVEN", desc: "Cildi koruyan el giysisi." },
@@ -1085,7 +1156,6 @@
                     cell.className = 'grid-cell';
                     cell.innerText = wsGrid[r][c];
 
-                    // Mouse Events
                     cell.addEventListener('mousedown', (e) => {
                         isMouseDown = true;
                         selectedCells = [cell];
@@ -1101,7 +1171,6 @@
                         }
                     });
 
-                    // Touch Events (Mobil Sürükleme Desteği)
                     cell.addEventListener('touchstart', (e) => {
                         isMouseDown = true;
                         selectedCells = [cell];
@@ -1114,7 +1183,6 @@
                 }
             }
 
-            // Global Touch/Mouse Up & Move
             gridEl.addEventListener('touchmove', (e) => {
                 if (!isMouseDown) return;
                 const touch = e.touches[0];
@@ -1161,6 +1229,7 @@
                     });
                     wordLi.classList.add('found-word');
                     wsFoundCount++;
+                    addBonusPoints(1); // Bulunan kelime başına +1 Puan
 
                     if (wsFoundCount === wsData.length) playSound('applause');
                     else playSound('correct');
@@ -1173,7 +1242,7 @@
             selectedCells = [];
         }
 
-        /* ================= 5) ÇENGEL BULMACA (OTOMATİK ÇİZİLEN) ================= */
+        /* ================= 5) ÇENGEL BULMACA (+1 PUAN) ================= */
         let crosswordJSON = [
             { id: 1, word: "MSDS", row: 1, col: 1, dir: "H", clue: "Güvenlik Bilgi Formu." },
             { id: 2, word: "GÖZLÜK", row: 3, col: 1, dir: "H", clue: "Göz koruyucu araç." },
@@ -1262,6 +1331,7 @@
             if (allCorrect && hasInput) {
                 status.style.color = "var(--accent-color)";
                 status.innerText = "Tebrikler! Bulmaca bitti.";
+                addBonusPoints(crosswordJSON.length); // Tamamlanan çengel bulmaca kelime sayısı kadar bonus puan
                 playSound('applause');
             } else {
                 status.style.color = "var(--danger-color)";
@@ -1270,10 +1340,11 @@
             }
         }
 
-        /* Sayfa yüklenince */
+        /* Sayfa ilk yüklendiğinde */
         window.onload = function() {
             initMatchGame();
             renderCrosswordFromList();
+            updateScoreDisplay();
         };
     </script>
 </body>
