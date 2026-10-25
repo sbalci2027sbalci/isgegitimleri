@@ -150,7 +150,7 @@
             cursor: not-allowed;
             transition: all 0.3s ease;
             flex: 1;
-            min-width: 130px;
+            min-width: 120px;
             text-align: center;
             opacity: 0.6;
         }
@@ -165,6 +165,19 @@
         .menu-btn.unlocked:hover, .menu-btn.active {
             background-color: var(--primary-color);
             color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* ÜST ARAYÜZE EKLENEN BİTİR VE KAYDET BUTONU STİLİ */
+        .menu-btn-save {
+            background-color: #2563eb !important;
+            color: white !important;
+            opacity: 1 !important;
+            cursor: pointer !important;
+        }
+        .menu-btn-save:hover {
+            background-color: #1d4ed8 !important;
+            color: white !important;
             transform: translateY(-2px);
         }
 
@@ -217,12 +230,13 @@
             display: flex; 
             justify-content: space-between; 
             gap: 8px; 
+            align-items: stretch;
         }
         .column { 
             flex: 1; 
             display: flex; 
             flex-direction: column; 
-            gap: 6px; 
+            gap: 8px; 
             min-width: 0; 
         }
         .column-title { 
@@ -235,9 +249,8 @@
             font-size: 0.75rem; 
         }
 
-        /* %50 BÜYÜTÜLMÜŞ MASAÜSTÜ / DOKUNMATİK KARTLAR */
         .card {
-            padding: 8px 10px;
+            padding: 0;
             background: #f1f5f9; 
             border: 1.5px solid #cbd5e1;
             border-radius: 6px;
@@ -246,32 +259,45 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: 48px;
+            min-height: 72px;
+            height: 72px;
+            flex: 1;
             user-select: none;
             font-size: 0.85rem;
             color: #1e293b;
             word-break: break-word;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #left-column .card {
+            padding: 6px 10px;
         }
         
         .visual-badge {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 6px;
             width: 100%;
+            height: 100%;
             min-width: 0;
+            padding: 0;
+            margin: 0;
+            gap: 8px;
         }
-        /* %50 BÜYÜTÜLMÜŞ PİKTOGRAM KUTUSU */
+        
+        /* PİKTOGRAM: Yükseklik %93, Sol-Üst-Alt boşluğu tam 1mm olarak eşitlendi */
         .mock-icon {
-            font-size: 20px;
+            font-size: 38px;
             background: #e2e8f0;
-            padding: 4px;
+            margin: 1mm;
+            height: 93%;
+            aspect-ratio: 1 / 1;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 32px;
-            min-height: 32px;
             flex-shrink: 0;
+            box-sizing: border-box;
         }
 
         .card:hover { border-color: #3b82f6; background: #e2e8f0; }
@@ -334,36 +360,36 @@
 
         .word-display {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             margin: 10px 0;
             flex-wrap: wrap;
         }
 
         .letter-box {
-            width: 28px;
-            height: 28px;
-            border-bottom: 2.5px solid var(--secondary-color);
+            width: 34px;
+            height: 34px;
+            border-bottom: 3px solid var(--secondary-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
         }
 
         .keyboard {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3px;
-            max-width: 400px;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
+            max-width: 380px;
         }
 
         .key-btn {
-            width: 28px;
-            height: 28px;
+            width: 100%;
+            height: 34px;
             border: 1px solid #ccc;
             background: #e9ecef;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -376,29 +402,29 @@
         .wordsearch-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 15px;
         }
 
         .grid-12x12 {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 1.5px;
+            gap: 2px;
             background: #2c3e50;
-            padding: 3px;
+            padding: 4px;
             border-radius: 6px;
             user-select: none;
             touch-action: none;
         }
 
         .grid-cell {
-            width: 24px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             background: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
@@ -414,10 +440,10 @@
         }
 
         .word-list li {
-            padding: 5px 8px;
+            padding: 6px 10px;
             background: #e9ecef;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             border-left: 3px solid var(--secondary-color);
         }
 
@@ -480,11 +506,24 @@
             background: var(--accent-color);
             color: white;
             border: none;
-            padding: 7px 14px;
+            padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        .section-footer-nav {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
 
         @keyframes shake {
@@ -495,29 +534,27 @@
             100% { transform: translateX(0); }
         }
 
-        /* --- MOBİL İÇİN %50 EN-BOY VE ÇERÇEVE BÜYÜTMELERİ --- */
+        /* --- MOBİL UYARLAMALAR --- */
         @media (max-width: 768px) {
             body { padding: 4px; }
             .sticky-header-container { flex-direction: column; align-items: stretch; text-align: center; }
             .top-bar-controls { justify-content: space-between; }
             
-            /* Mobilde Eşleştirme Kartları ve Piktogram Alanları En-Boy %50 Büyütüldü */
             .card {
-                min-height: 58px;
-                padding: 10px;
+                min-height: 80px;
+                height: 80px;
                 font-size: 0.82rem;
                 line-height: 1.25;
             }
             .mock-icon {
-                font-size: 24px;
-                min-width: 36px;
-                min-height: 36px;
+                font-size: 32px;
+                margin: 1mm;
             }
             
-            .grid-cell { width: 22px; height: 22px; font-size: 0.65rem; }
+            .grid-cell { width: 26px; height: 26px; font-size: 0.75rem; }
             .crossword-board { grid-template-columns: repeat(10, 24px); grid-template-rows: repeat(10, 24px); }
             .cw-cell { width: 24px; height: 24px; }
-            .menu-btn { min-width: 45%; flex: 1 1 45%; }
+            .menu-btn { min-width: 30%; flex: 1 1 30%; font-size: 0.75rem; padding: 6px 4px; }
         }
     </style>
 </head>
@@ -548,10 +585,11 @@
     <!-- MENÜ BUTONLARI -->
     <div class="menu-container">
         <button class="menu-btn unlocked active" id="btn-match" onclick="switchGame('match', this)">1. Eşleştirme</button>
-        <button class="menu-btn" id="btn-fill" onclick="switchGame('fill', this)">2. Boşluk Doldurma 🔒</button>
-        <button class="menu-btn" id="btn-fire" onclick="switchGame('fire', this)">3. Yangın Söndürme 🔒</button>
+        <button class="menu-btn" id="btn-fill" onclick="switchGame('fill', this)">2. Boşluk 🔒</button>
+        <button class="menu-btn" id="btn-fire" onclick="switchGame('fire', this)">3. Yangın 🔒</button>
         <button class="menu-btn" id="btn-wordsearch" onclick="switchGame('wordsearch', this)">4. Kelime Avı 🔒</button>
-        <button class="menu-btn" id="btn-cw" onclick="switchGame('crossword', this)">5. Çengel Bulmaca 🔒</button>
+        <button class="menu-btn" id="btn-cw" onclick="switchGame('crossword', this)">5. Çengel 🔒</button>
+        <button class="menu-btn menu-btn-save" id="btn-save-top" onclick="finishAndSave()">💾 Bitir ve Kaydet</button>
     </div>
 
     <!-- 1. EŞLEŞTİRME ETKİNLİĞİ -->
@@ -564,7 +602,7 @@
         </p>
         
         <div class="stats-bar">
-            <div class="stat-item">Toplam: <span id="total-count">20</span></div>
+            <div class="stat-item">Toplam: <span id="total-count">12</span></div>
             <div class="stat-item stat-correct">Doğru: <span id="correct-count">0</span></div>
             <div class="stat-item stat-wrong">Yanlış: <span id="wrong-count">0</span></div>
         </div>
@@ -592,6 +630,9 @@
             <h2>2. Cümle İçinde Boşluk Doldurma</h2>
         </div>
         <div id="fill-questions"></div>
+        <div class="section-footer-nav">
+            <button class="btn-action" onclick="switchGame('fire', document.getElementById('btn-fire'))">Yangın Söndürmeye Geç ➔</button>
+        </div>
     </div>
 
     <!-- 3. YANGIN SÖNDÜRME OYUNU -->
@@ -637,6 +678,9 @@
                 <button class="btn-action" onclick="initFireGame()" style="margin-top:8px;">Sonraki Kelime</button>
             </div>
         </div>
+        <div class="section-footer-nav">
+            <button class="btn-action" onclick="switchGame('wordsearch', document.getElementById('btn-wordsearch'))">Kelime Avına Geç ➔</button>
+        </div>
     </div>
 
     <!-- 4. KELİME AVI -->
@@ -651,6 +695,9 @@
                 <ul class="word-list" id="ws-list"></ul>
             </div>
         </div>
+        <div class="section-footer-nav">
+            <button class="btn-action" onclick="switchGame('crossword', document.getElementById('btn-cw'))">Çengel Bulmacaya Geç ➔</button>
+        </div>
     </div>
 
     <!-- 5. ÇENGEL BULMACA -->
@@ -662,7 +709,9 @@
         <div class="crossword-wrapper">
             <div>
                 <div class="crossword-board" id="cw-board"></div>
-                <button class="btn-action" style="margin-top: 10px;" onclick="checkCrossword()">Kontrol Et</button>
+                <div style="margin-top: 10px;">
+                    <button class="btn-action" onclick="checkCrossword()">Kontrol Et</button>
+                </div>
                 <div id="cw-status" style="margin-top:6px; font-weight:bold; font-size:0.8rem;"></div>
             </div>
 
@@ -676,6 +725,48 @@
     </div>
 
     <script>
+        /* ================= MOBİL ARKAYA ATILDIĞINDA KALINAN YERİ KORUMA ================= */
+        let activeTab = 'match';
+        
+        function saveCurrentState() {
+            const state = {
+                userTotalScore: userTotalScore,
+                secondsElapsed: secondsElapsed,
+                isGamesUnlocked: isGamesUnlocked,
+                activeTab: activeTab
+            };
+            localStorage.setItem('isg_game_state', JSON.stringify(state));
+        }
+
+        function restoreCurrentState() {
+            const saved = localStorage.getItem('isg_game_state');
+            if (saved) {
+                try {
+                    const state = JSON.parse(saved);
+                    userTotalScore = state.userTotalScore || 0;
+                    secondsElapsed = state.secondsElapsed || 0;
+                    isGamesUnlocked = state.isGamesUnlocked || false;
+                    
+                    if (isGamesUnlocked) unlockAllGames();
+                    updateScoreDisplay();
+                    document.getElementById('timer-count').innerText = secondsElapsed;
+
+                    if (state.activeTab && state.activeTab !== 'match' && isGamesUnlocked) {
+                        const targetBtn = document.getElementById(`btn-${state.activeTab === 'crossword' ? 'cw' : state.activeTab}`);
+                        switchGame(state.activeTab, targetBtn);
+                    }
+                } catch(e) {}
+            }
+        }
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                saveCurrentState();
+            }
+        });
+
+        window.addEventListener('pagehide', saveCurrentState);
+
         /* ================= PUAN HESAPLAMA VE SAYAÇ MANTIĞI ================= */
         let userTotalScore = 0;
         let timerInterval = null;
@@ -690,6 +781,7 @@
             } else {
                 scoreBox.classList.remove('passed');
             }
+            saveCurrentState();
         }
 
         function addBonusPoints(points) {
@@ -706,13 +798,6 @@
                 document.getElementById('timer-count').innerText = secondsElapsed;
             }, 1000);
         }
-
-        window.addEventListener('beforeunload', function (e) {
-            if (isTimerRunning) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        });
 
         /* ================= SES MOTORU ================= */
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -788,6 +873,7 @@
                 btn.classList.add('unlocked');
                 btn.innerText = labels[index];
             });
+            saveCurrentState();
         }
 
         function switchGame(type, btnElement) {
@@ -796,6 +882,8 @@
                 return;
             }
 
+            activeTab = type;
+            saveCurrentState();
             playSound('click');
             startTimer();
 
@@ -823,15 +911,7 @@
             { id: 9, left_text: "MSDS Bölüm 8 (KKD)", visual_content: "🥽", visual_label: "Koruyucu Donanım", match_key: "msds_sec8" },
             { id: 10, left_text: "Çok Toksik Madde", visual_content: "☠️", visual_label: "Kuru Kafa", match_key: "toxic" },
             { id: 11, left_text: "Karbonmonoksit Filtresi", visual_content: "🔘", visual_label: "Siyah/Gri Kartuş", match_key: "co_filter" },
-            { id: 12, left_text: "Sağlık Zararı (Kanserojen)", visual_content: "⚡", visual_label: "Yıldız Sembolü", match_key: "health_hazard" },
-           // { id: 13, left_text: "Çevre İçin Tehlikeli", visual_content: "🌲", visual_label: "Ölü Ağaç/Balık", match_key: "environmental" },
-          //  { id: 14, left_text: "Basınçlı Gaz Tüpleri", visual_content: "🧊", visual_label: "Gaz Tüpü Simgesi", match_key: "gas_cylinder" },
-          //  { id: 15, left_text: "MSDS Bölüm 4 (İlk Yardım)", visual_content: "🚑", visual_label: "İlk Yardım Çantası", match_key: "msds_sec4" },
-          //  { id: 16, left_text: "Toz ve Partikül Filtresi", visual_content: "😷", visual_label: "Parçacık Filtresi", match_key: "dust_filter" },
-          //  { id: 17, left_text: "MSDS Bölüm 1 (Kimlik)", visual_content: "📌", visual_label: "Şirket Bilgisi", match_key: "msds_sec1" },
-          //  { id: 18, left_text: "Alevlenir Gaz/Sıvı", visual_content: "🔥", visual_label: "Alev Simgesi", match_key: "flammable" },
-          //  { id: 19, left_text: "MSDS Bölüm 6 (Sızıntı)", visual_content: "🧹", visual_label: "Müdahale Simgesi", match_key: "msds_sec6" },
-            //{ id: 20, left_text: "Dökülme Nötralizatörü", visual_content: "🧯", visual_label: "Nötrleme Tozu", match_key: "spill_kit" }
+            { id: 12, left_text: "Sağlık Zararı (Kanserojen)", visual_content: "⚡", visual_label: "Yıldız Sembolü", match_key: "health_hazard" }
         ];
 
         let selectedLeft = null;
@@ -933,7 +1013,6 @@
                 playSound('applause');
                 unlockAllGames();
                 
-                // Puan Hesaplama: TamSayı(Doğru / (Doğru + Yanlış) * 100)
                 const totalAttempts = matchCorrectCount + matchWrongCount;
                 userTotalScore = Math.floor((matchCorrectCount / totalAttempts) * 100);
                 updateScoreDisplay();
@@ -989,7 +1068,7 @@
                 input.classList.add('correct');
                 input.disabled = true;
                 fillCorrectCount++;
-                addBonusPoints(1); // +1 Puan ekleme
+                addBonusPoints(1);
 
                 if (fillCorrectCount === fillData.length) playSound('applause');
                 else playSound('correct');
@@ -1074,7 +1153,7 @@
                     document.getElementById('fire-status-text').innerText = "%0 (SÖNDÜRÜLDÜ!)";
                     document.getElementById('fire-status-text').style.color = "var(--accent-color)";
                     
-                    addBonusPoints(1); // Doğru bilinen kelime başına +1 Puan
+                    addBonusPoints(1);
                     playSound('applause');
                 } else {
                     playSound('correct');
@@ -1229,7 +1308,7 @@
                     });
                     wordLi.classList.add('found-word');
                     wsFoundCount++;
-                    addBonusPoints(1); // Bulunan kelime başına +1 Puan
+                    addBonusPoints(1);
 
                     if (wsFoundCount === wsData.length) playSound('applause');
                     else playSound('correct');
@@ -1331,7 +1410,7 @@
             if (allCorrect && hasInput) {
                 status.style.color = "var(--accent-color)";
                 status.innerText = "Tebrikler! Bulmaca bitti.";
-                addBonusPoints(crosswordJSON.length); // Tamamlanan çengel bulmaca kelime sayısı kadar bonus puan
+                addBonusPoints(crosswordJSON.length);
                 playSound('applause');
             } else {
                 status.style.color = "var(--danger-color)";
@@ -1340,11 +1419,47 @@
             }
         }
 
+        /* ================= BİTİR VE KAYDET FONKSİYONU ================= */
+        function finishAndSave() {
+            playSound('click');
+
+            if (userTotalScore < 60) {
+                const confirmSave = confirm("Bitirmek ve Kaydetmek için puan sınır değerine ulaşılmadı, emin misiniz?");
+                if (!confirmSave) {
+                    return;
+                }
+            }
+
+            playSound('applause');
+            alert(`Tebrikler! Etkinlik kaydedildi.\nToplam Puanınız: ${userTotalScore}\nTamamlama Süreniz: ${secondsElapsed} saniye.`);
+
+            localStorage.removeItem('isg_game_state');
+            userTotalScore = 0;
+            secondsElapsed = 0;
+            isGamesUnlocked = false;
+            if (timerInterval) clearInterval(timerInterval);
+            isTimerRunning = false;
+            
+            document.getElementById('timer-count').innerText = "0";
+            updateScoreDisplay();
+            
+            switchGame('match', document.getElementById('btn-match'));
+            initMatchGame();
+            
+            const buttons = ['btn-fill', 'btn-fire', 'btn-wordsearch', 'btn-cw'];
+            const labels = ['2. Boşluk 🔒', '3. Yangın 🔒', '4. Kelime Avı 🔒', '5. Çengel 🔒'];
+            buttons.forEach((id, index) => {
+                const btn = document.getElementById(id);
+                btn.classList.remove('unlocked');
+                btn.innerText = labels[index];
+            });
+        }
+
         /* Sayfa ilk yüklendiğinde */
         window.onload = function() {
             initMatchGame();
             renderCrosswordFromList();
-            updateScoreDisplay();
+            restoreCurrentState();
         };
     </script>
 </body>
